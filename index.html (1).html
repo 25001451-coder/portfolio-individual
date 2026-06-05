@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoàng Minh's Field Notes & AI Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons (Nature & Scientific theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Playfair Display & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#f2f8f5',
+                            100: '#e1efe7',
+                            200: '#c5e0d1',
+                            600: '#2d6a4f',
+                            700: '#1b4332',
+                            800: '#081c15',
+                        },
+                        earth: {
+                            50: '#faf7f2',
+                            100: '#f5ebe0',
+                            200: '#ebdccb',
+                            600: '#8c5e3c',
+                            700: '#6f482c',
+                        },
+                        clay: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            600: '#ca8a04',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fbfbf9;
+        }
+        /* Custom scrollbar mộc mạc màu lá cây rừng */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5ebe0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d6a4f;
+            border-radius: 3px;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .print-card { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+        }
+    </style>
+</head>
+<body class="text-stone-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- HEADER MỘC MẠC -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-stone-200/60 sticky top-0 z-50 no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand / Logo -->
+                <div class="flex items-center space-x-3">
+                    <span class="text-forest-600 text-2xl"><i class="fa-solid fa-seedling animate-pulse"></i></span>
+                    <div>
+                        <h1 class="font-serif font-bold text-lg text-stone-900 leading-tight">Hoàng Minh's Notes</h1>
+                        <p class="text-[10px] text-stone-400 font-medium tracking-wide">Nhật ký Công nghệ số & AI</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden md:flex space-x-1 bg-stone-100 p-1 rounded-xl">
+                    <button onclick="switchTab('intro')" id="tab-btn-intro" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-white text-forest-700 shadow-sm">
+                        <i class="fa-solid fa-feather-pointed mr-1.5"></i>1. Giới Thiệu
+                    </button>
+                    <button onclick="switchTab('projects')" id="tab-btn-projects" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 text-stone-600 hover:text-stone-900">
+                        <i class="fa-solid fa-leaf mr-1.5"></i>2. Trang Dự Án
+                    </button>
+                    <button onclick="switchTab('summary')" id="tab-btn-summary" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 text-stone-600 hover:text-stone-900">
+                        <i class="fa-solid fa-map mr-1.5"></i>3. Trang Tổng Kết
+                    </button>
+                </nav>
+
+                <!-- Actions -->
+                <button onclick="window.print()" class="bg-forest-600 hover:bg-forest-700 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all flex items-center space-x-1.5">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden sm:inline">In trang này lưu trữ</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+        
+        <!-- BANNER THÔNG TIN CHUNG (Hiển thị mộc mạc ở đầu) -->
+        <div class="bg-gradient-to-br from-forest-800 to-forest-700 text-white rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 text-white opacity-10 text-9xl font-bold">
+                <i class="fa-solid fa-dove"></i>
+            </div>
+            <div class="relative z-10 space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-white/10 text-forest-100 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">
+                    <i class="fa-solid fa-compass mr-1"></i>
+                    <span>Học phần: Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-serif font-extrabold tracking-tight">Hồ sơ năng lực học tập số — Portfolio</h1>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-white/20 text-xs sm:text-sm">
+                    <div>
+                        <p class="text-forest-200 font-medium">Họ và tên Sinh viên</p>
+                        <p class="font-bold text-white text-base mt-0.5">PHẠM HOÀNG MINH</p>
+                    </div>
+                    <div>
+                        <p class="text-forest-200 font-medium">Mã số Sinh viên</p>
+                        <p class="font-bold text-white text-base mt-0.5">25001451</p>
+                    </div>
+                    <div>
+                        <p class="text-forest-200 font-medium">Khoa & Ngành</p>
+                        <p class="font-bold text-white text-base mt-0.5">Sinh học - ĐH KHTN</p>
+                    </div>
+                    <div>
+                        <p class="text-forest-200 font-medium">Sở thích thực địa</p>
+                        <p class="font-bold text-white text-base mt-0.5"><i class="fa-solid fa-binoculars mr-1.5"></i>Nghiên cứu chim chóc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE NAV BUTTONS (Hiển thị khi màn hình nhỏ) -->
+        <div class="flex md:hidden justify-between bg-stone-100 p-1 rounded-xl no-print gap-1">
+            <button onclick="switchTab('intro')" id="m-tab-btn-intro" class="m-tab-btn flex-1 text-center py-2.5 rounded-lg text-xs font-bold bg-white text-forest-700 shadow-sm">Giới Thiệu</button>
+            <button onclick="switchTab('projects')" id="m-tab-btn-projects" class="m-tab-btn flex-1 text-center py-2.5 rounded-lg text-xs font-bold text-stone-600">Dự Án</button>
+            <button onclick="switchTab('summary')" id="m-tab-btn-summary" class="m-tab-btn flex-1 text-center py-2.5 rounded-lg text-xs font-bold text-stone-600">Tổng Kết</button>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- TRANG 1: GIỚI THIỆU (INTRO) -->
+        <!-- ============================================== -->
+        <section id="tab-content-intro" class="tab-content space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Cột Trái: Thông tin dã ngoại -->
+                <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm flex flex-col items-center text-center print-card">
+                    <!-- Ảnh đại diện dã ngoại mộc mạc -->
+                    <div class="relative w-36 h-36 rounded-full p-1 bg-gradient-to-tr from-forest-600 to-clay-200 mb-4">
+                        <div class="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
+                            <div class="w-full h-full bg-forest-50 flex items-center justify-center text-forest-600 text-5xl">
+                                <i class="fa-solid fa-kiwi-bird animate-bounce"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-xl font-serif font-bold text-stone-900">Phạm Hoàng Minh</h2>
+                    <p class="text-xs text-forest-600 font-semibold uppercase tracking-wider">Khoa Sinh học - ĐH KHTN</p>
+                    
+                    <div class="w-full border-t border-stone-100 my-4 pt-4 text-left space-y-3 text-xs text-stone-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-address-card text-stone-400 w-5 text-center"></i>
+                            <span>Mã số sinh viên: 25001451</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-graduation-cap text-stone-400 w-5 text-center"></i>
+                            <span>Ngành học: Sinh học</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-binoculars text-stone-400 w-5 text-center"></i>
+                            <span>Sở thích: Nghiên cứu chim chóc và bảo tồn động vật</span>
+                        </div>
+                    </div>
+
+                    <!-- Polaroid style image slot -->
+                    <div class="border border-stone-200/60 p-2.5 bg-white shadow-inner rounded-xl w-full">
+                        <div class="bg-stone-100 aspect-video rounded-lg flex items-center justify-center text-stone-400 overflow-hidden">
+                            <!-- Bạn có thể thay link ảnh minh họa này bằng link ảnh thật của bạn nhé -->
+                            <img src="https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=600&q=80" alt="Ảnh thực địa điểu học" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1552728089-57169255e2d1?auto=format&fit=crop&w=600&q=80'">
+                        </div>
+                        <p class="text-[10px] font-serif italic text-stone-500 mt-2">"Nhật ký thực địa-ảnh AI gemini"</p>
+                    </div>
+                </div>
+
+                <!-- Cột Phải: Mục tiêu & Định hướng -->
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6 print-card">
+                    <!-- Tiêu đề lớn theo yêu cầu -->
+                    <div class="p-5 bg-clay-50 border border-clay-100 rounded-2xl text-left">
+                        <h3 class="text-lg sm:text-xl font-serif font-bold text-clay-700 leading-snug">
+                            6 BÀI TẬP MÔN NHẬP MÔN CÔNG NGHỆ SỐ VÀ TRÍ TUỆ NHÂN TẠO AI
+                        </h3>
+                        <p class="text-xs text-stone-600 mt-2 leading-relaxed">
+                            Trang lưu trữ, quản lý và liên kết nhanh toàn bộ các sản phẩm thực hành học tập cá nhân của học kỳ này.
+                        </p>
+                    </div>
+
+                    <!-- Phần Trải nghiệm & Cảm nhận của em về môn học -->
+                    <div class="space-y-3">
+                        <h4 class="font-serif font-bold text-base text-forest-700 flex items-center gap-2">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                            <span>Lời tự sự về hành trình học tập</span>
+                        </h4>
+                        <p class="text-sm text-stone-700 leading-relaxed italic bg-forest-50/50 p-4 rounded-xl border border-forest-100/60">
+                            "Qua học phần này, em đã học được rất nhiều điều thú vị giúp em sử dụng AI hiệu quả hơn nhiều trong học tập cũng như cuộc sống dã ngoại. Đặc biệt, những kiến thức thực tế đã giúp em tránh được nhiều rủi ro lớn về mặt liêm chính học thuật khi đồng hành cùng công nghệ, giúp em biết cách chọn lọc, kiểm chứng và tôn trọng bản quyền thông tin một cách đúng đắn nhất."
+                        </p>
+                    </div>
+
+                    <!-- Các bước thực hiện Portfolio -->
+                    <div class="border-t border-stone-100 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-2xl bg-earth-50 border border-earth-100">
+                            <h4 class="font-serif font-bold text-stone-900 text-sm mb-1.5"><i class="fa-solid fa-bullseye text-forest-600 mr-2"></i>Mục tiêu học tập số của em</h4>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                Nắm vững kỹ năng khai thác thông tin khoa học chuẩn xác, làm việc nhóm và đồng hành cùng AI có trách nhiệm để tăng tốc nghiên cứu dự án của nhóm.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-earth-50 border border-earth-100">
+                            <h4 class="font-serif font-bold text-stone-900 text-sm mb-1.5"><i class="fa-solid fa-compass text-forest-600 mr-2"></i>Định hướng Portfolio</h4>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                Đóng gói toàn vẹn 6 sản phẩm bài tập cá nhân, thể hiện tinh thần học hỏi tự nhiên, liêm chính khoa học và sẵn sàng chia sẻ tri thức.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Điều hướng nhanh qua Trang Dự án -->
+            <div class="flex justify-center pt-4 no-print">
+                <button onclick="switchTab('projects')" class="bg-forest-600 hover:bg-forest-700 text-white px-6 py-3 rounded-xl font-bold shadow-sm transition-all flex items-center space-x-2 transform hover:-translate-y-0.5">
+                    <span>Xem tiếp Trang Dự Án</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- TRANG 2: TRANG DỰ ÁN (PROJECTS) -->
+        <!-- ============================================== -->
+        <section id="tab-content-projects" class="tab-content hidden space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200/60 pb-3">
+                <div>
+                    <h3 class="font-serif font-bold text-xl text-stone-900"><i class="fa-solid fa-folder-open text-forest-600 mr-2"></i>Hồ sơ nộp 6 bài tập thành phần</h3>
+                    <p class="text-xs text-stone-400 mt-0.5">Toàn bộ 6 bài tập được tổ chức khoa học theo đúng khung chương trình học.</p>
+                </div>
+                <button onclick="clearAllData()" class="no-print text-xs text-stone-400 hover:text-rose-600 font-medium transition-all self-start sm:self-center flex items-center space-x-1">
+                    <i class="fa-solid fa-eraser"></i>
+                    <span>Xóa dữ liệu đã nhập</span>
+                </button>
+            </div>
+
+            <!-- GRID 6 CARDS BÀI TẬP ĐÃ SẮP XẾP ĐÚNG THỨ TỰ (CHƯƠNG 1 -> CHƯƠNG 6) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- BÀI TẬP 1 (Chương 1) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-1">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 01</span>
+                            <span id="badge-status-1" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Máy tính và các thiết bị ngoại vi</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> Nhận diện các cấu phần máy tính, tối ưu hóa hệ thống cây dữ liệu lưu trữ đám mây.</p>
+                            <p><strong>• Cách thực hiện:</strong> Quy hoạch hệ thống thư mục chuẩn khoa học, phân loại thư mục học tập , đặt tên tệp tin logic không lỗi đường truyền.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-1" placeholder="Dán link bài 1 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(1)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-1" rows="2" placeholder="Ví dụ: Đã thiết lập sơ đồ cấu trúc tệp..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(1)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(1)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 1</button>
+                    </div>
+                </div>
+
+                <!-- BÀI TẬP 2 (Chương 2) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-2">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 02</span>
+                            <span id="badge-status-2" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Khai thác dữ liệu và thông tin</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> Sử dụng công cụ tra cứu học thuật nâng cao và đánh giá chất lượng thông tin tin cậy.</p>
+                            <p><strong>• Cách thực hiện:</strong> Thực hành tìm kiếm bằng toán tử nâng cao (site:, filetype:), lọc các nguồn tin uy tín, lập bảng đối chứng CRAAP.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-2" placeholder="Dán link bài 2 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(2)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-2" rows="2" placeholder="Ví dụ: Đã xây dựng bảng đánh giá nguồn tài liệu..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(2)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(2)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 2</button>
+                    </div>
+                </div>
+
+                <!-- BÀI TẬP 3 (Chương 3) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-3">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 03</span>
+                            <span id="badge-status-3" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Tổng quan về trí tuệ nhân tạo</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> biết đến cách viết prompt hiệu quả và các AI tạo sinh hữu dụng từ đó nâng cao chất lượng học tập.</p>
+                            <p><strong>• Cách thực hiện:</strong> Bằng cách hiểu rõ nguyên lý hoạt động của các mô hình ngôn ngữ lớn và áp dụng các nguyên tắc, kỹ thuật viết prompt hiệu quả như mô hình CLEAR hay Chuỗi tư duy (ioT) .</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-3" placeholder="Dán link bài 3 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(3)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-3" rows="2" placeholder="Ví dụ: Họp nhóm dã ngoại qua Meet, làm việc đồng thời..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(3)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(3)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 3</button>
+                    </div>
+                </div>
+
+                <!-- BÀI TẬP 4 (Chương 4) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-4">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 04</span>
+                            <span id="badge-status-4" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Giao tiếp và hợp tác trong môi trường số</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> kiến thức và kỹ năng thực hành cần thiết để giao tiếp và hợp tác hiệu quả trong môi trường số.</p>
+                            <p><strong>• ứng dụng:</strong> học tập và xây dựng sự nghiệp,cá nhân và giải trí tất cả đi kèm với quy tắc ứng xử .</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-4" placeholder="Dán link bài 4 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(4)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-4" rows="2" placeholder="Ví dụ: Thiết kế poster tuyên truyền cực đẹp..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(4)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(4)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 4</button>
+                    </div>
+                </div>
+
+                <!-- BÀI TẬP 5 (Chương 5) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-5">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 05</span>
+                            <span id="badge-status-5" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Sáng tạo nội dung số</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> trang bị kiến thức và kĩ năng nền tảng để có thể sáng tạo nội dung số và có trách nhiệm với công việc.</p>
+                            <p><strong>• Cách thực hiện:</strong> lên ý tưởng và nghiên cứu,lập kế hoạch ,sản xuất,biên tập và tinh chỉnh,xuất bản,đo lường và tối ưu.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-5" placeholder="Dán link bài 5 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(5)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-5" rows="2" placeholder="Ví dụ: Thiết lập prompt phân tích so sánh chi tiết..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(5)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(5)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 5</button>
+                    </div>
+                </div>
+
+                <!-- BÀI TẬP 6 (Chương 6) -->
+                <div class="bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:border-forest-200 transition-all flex flex-col justify-between space-y-4 print-card relative" id="card-6">
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Nhiệm vụ 06</span>
+                            <span id="badge-status-6" class="text-[10px] font-semibold text-stone-400"><i class="fa-solid fa-circle-notch mr-1"></i>Trống</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">An toàn và liêm chính học thuật trong môi trường số</h4>
+                        
+                        <div class="space-y-1.5 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <p><strong>• Mục tiêu:</strong> Hiểu rõ các rủi ro bảo mật thông tin và xây dựng bộ nguyên tắc cá nhân khi ứng dụng công nghệ.</p>
+                            <p><strong>• Cách thực hiện:</strong> Soạn thảo bản cam kết tuân thủ liêm chính học thuật, tôn trọng bản quyền số và trích dẫn chuẩn hóa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-3 border-t border-stone-100">
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Đường dẫn bài làm (Google Drive/URL)</label>
+                            <input type="text" id="link-6" placeholder="Dán link bài 6 tại đây..." class="w-full text-xs px-3 py-2 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40" oninput="handleInputChange(6)">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Ghi chú cá nhân của Minh</label>
+                            <textarea id="note-6" rows="2" placeholder="Ví dụ: Cam kết không sao chép nguyên văn từ AI..." class="w-full text-xs px-3 py-1.5 border border-stone-200 rounded-xl outline-none focus:border-forest-600 transition-all bg-stone-50/40 resize-none" oninput="handleInputChange(6)"></textarea>
+                        </div>
+                        <button onclick="saveAssignment(6)" class="w-full bg-forest-600 hover:bg-forest-700 text-white text-xs font-semibold py-2 rounded-xl transition-all">Lưu bài tập 6</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Điều hướng nhanh qua Trang Tổng kết -->
+            <div class="flex justify-center pt-4 no-print">
+                <button onclick="switchTab('summary')" class="bg-forest-600 hover:bg-forest-700 text-white px-6 py-3 rounded-xl font-bold shadow-sm transition-all flex items-center space-x-2 transform hover:-translate-y-0.5">
+                    <span>Xem tiếp Trang Tổng Kết</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- TRANG 3: TRANG TỔNG KẾT (SUMMARY) -->
+        <!-- ============================================== -->
+        <section id="tab-content-summary" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Nội dung tổng kết chi tiết -->
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6 print-card">
+                    <h3 class="font-serif font-bold text-xl text-stone-900 border-l-4 border-forest-600 pl-3">Trải nghiệm & Kiến thức thu nhận được</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-stone-600 leading-relaxed">
+                        <p>
+                            Việc xây dựng trang Portfolio cá nhân này đã giúp em hệ thống hóa lại toàn bộ chặng đường học tập của môn học. Đây không đơn thuần là nơi gom góp link nộp bài mà thực sự là một quyển nhật ký số của bản thân.
+                        </p>
+                        <p>
+                            <strong>• Kiến thức quan trọng nhất:</strong> Em nhận thức rõ sự kết hợp mượt mà giữa ngành học của mình và Công nghệ số/AI sẽ là cánh cửa mở ra xu hướng nghiên cứu thông minh trong tương lai. Kỹ năng khai thác tài liệu an toàn, khoa học, có chọn lọc và đạo đức chính là nền tảng cốt lõi giúp em trở thành một công dân số có trách nhiệm.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-2xl bg-forest-50/50 border border-forest-100">
+                            <h4 class="font-serif font-bold text-forest-700 text-sm mb-1.5"><i class="fa-solid fa-star mr-1.5"></i>Điểm tâm đắc nhất</h4>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                               em thấy với việc mình tự chủ động thiết lập và duy trì được một lối tư duy mở, xem các công cụ trí tuệ nhân tạo như người đồng hành khoa học hữu ích thay vì phụ thuộc thụ động vào nó.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-clay-50/50 border border-clay-100">
+                            <h4 class="font-serif font-bold text-clay-700 text-sm mb-1.5"><i class="fa-solid fa-mountain mr-1.5"></i>Thách thức vượt qua</h4>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                Việc sắp xếp lịch trình và tìm cách tối ưu hóa không gian lưu trữ số để không xảy ra bất kỳ sự xáo trộn hay thất lạc mẫu thông tin nào.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Ghi nhận tiến trình nộp bài -->
+                <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm print-card flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Tiến độ lưu trữ</span>
+                        <h4 class="font-serif font-bold text-stone-900 text-base">Trạng thái hoàn thiện các mục bài tập</h4>
+                        
+                        <div class="space-y-2.5 text-xs text-stone-600" id="progress-list">
+                            <!-- JS will update this list dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-stone-100">
+                        <button onclick="window.print()" class="w-full bg-forest-600 hover:bg-forest-700 text-white font-bold py-3 rounded-xl text-xs shadow-sm transition-all text-center block">
+                            <i class="fa-solid fa-file-pdf mr-1.5"></i> Xuất bản / In PDF nộp bài
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER MỘC MẠC -->
+    <footer class="bg-stone-900 text-stone-400 py-8 mt-12 border-t border-stone-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs space-y-2">
+            <p class="font-serif italic text-stone-300">"Nature is the art of freedom, and Technology is the tool of Man."</p>
+            <div class="h-px bg-stone-800 w-16 mx-auto my-1"></div>
+            <p>© 2026 Phạm Hoàng Minh — Khoa Sinh học — ĐH Khoa học Tự nhiên</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT CONTROLLER (Interactive Tab & LocalStorage) -->
+    <script>
+        // Tự động tải dữ liệu cũ khi F5 lại trang
+        window.onload = function() {
+            for (let i = 1; i <= 6; i++) {
+                const savedLink = localStorage.getItem(`minh_link_${i}`);
+                const savedNote = localStorage.getItem(`minh_note_${i}`);
+                
+                if (savedLink) {
+                    document.getElementById(`link-${i}`).value = savedLink;
+                }
+                if (savedNote) {
+                    document.getElementById(`note-${i}`).value = savedNote;
+                }
+                
+                if (savedLink || savedNote) {
+                    updateBadge(i, true);
+                } else {
+                    updateBadge(i, false);
+                }
+            }
+            updateSummaryProgress();
+        };
+
+        // Chuyển đổi Tab linh hoạt (Cấu trúc 3 trang)
+        function switchTab(tabId) {
+            // Ẩn tất cả nội dung tab
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            // Hiển thị tab được chọn
+            const targetContent = document.getElementById(`tab-content-${tabId}`);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            // Đồng bộ trạng thái nút Desktop
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.classList.remove('bg-white', 'text-forest-700', 'shadow-sm');
+                btn.classList.add('text-stone-600', 'hover:text-stone-900');
+            });
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-stone-600', 'hover:text-stone-900');
+                activeBtn.classList.add('bg-white', 'text-forest-700', 'shadow-sm');
+            }
+
+            // Đồng bộ trạng thái nút Mobile
+            const mTabBtns = document.querySelectorAll('.m-tab-btn');
+            mTabBtns.forEach(btn => {
+                btn.classList.remove('bg-white', 'text-forest-700', 'shadow-sm');
+                btn.classList.add('text-stone-600');
+            });
+            const activeMBtn = document.getElementById(`m-tab-btn-${tabId}`);
+            if (activeMBtn) {
+                activeMBtn.classList.remove('text-stone-600');
+                activeMBtn.classList.add('bg-white', 'text-forest-700', 'shadow-sm');
+            }
+
+            // Cuộn mượt lên đầu trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (tabId === 'summary') {
+                updateSummaryProgress();
+            }
+        }
+
+        // Cập nhật huy hiệu nộp bài
+        function updateBadge(id, isSaved) {
+            const badge = document.getElementById(`badge-status-${id}`);
+            const card = document.getElementById(`card-${id}`);
+            if (isSaved) {
+                badge.className = "text-[10px] font-bold text-forest-600 bg-forest-50 px-2.5 py-0.5 rounded-lg border border-forest-100";
+                badge.innerHTML = `<i class="fa-solid fa-leaf mr-1"></i>Đã lưu`;
+                card.classList.add("border-forest-600/30", "bg-forest-50/10");
+            } else {
+                badge.className = "text-[10px] font-semibold text-stone-400";
+                badge.innerHTML = `<i class="fa-solid fa-circle-notch mr-1"></i>Trống`;
+                card.classList.remove("border-forest-600/30", "bg-forest-50/10");
+            }
+        }
+
+        // Xử lý thay đổi dữ liệu chưa lưu
+        function handleInputChange(id) {
+            const linkVal = document.getElementById(`link-${id}`).value;
+            const noteVal = document.getElementById(`note-${id}`).value;
+            const badge = document.getElementById(`badge-status-${id}`);
+            
+            if (linkVal.trim() !== "" || noteVal.trim() !== "") {
+                badge.className = "text-[10px] font-bold text-clay-700 bg-clay-50 px-2.5 py-0.5 rounded-lg border border-clay-100 animate-pulse";
+                badge.innerHTML = `<i class="fa-solid fa-pen-nib mr-1"></i>Chờ lưu...`;
+            } else {
+                updateBadge(id, false);
+            }
+        }
+
+        // Lưu thông tin bài tập
+        function saveAssignment(id) {
+            const linkVal = document.getElementById(`link-${id}`).value;
+            const noteVal = document.getElementById(`note-${id}`).value;
+            
+            if (linkVal.trim() === "" && noteVal.trim() === "") {
+                localStorage.removeItem(`minh_link_${id}`);
+                localStorage.removeItem(`minh_note_${id}`);
+                updateBadge(id, false);
+            } else {
+                localStorage.setItem(`minh_link_${id}`, linkVal);
+                localStorage.setItem(`minh_note_${id}`, noteVal);
+                updateBadge(id, true);
+            }
+            updateSummaryProgress();
+        }
+
+        // Xóa sạch dữ liệu đã lưu
+        function clearAllData() {
+            if (confirm("Minh có chắc chắn muốn xóa toàn bộ liên kết và ghi chú đã nhập không?")) {
+                localStorage.clear();
+                for (let i = 1; i <= 6; i++) {
+                    document.getElementById(`link-${i}`).value = "";
+                    document.getElementById(`note-${i}`).value = "";
+                    updateBadge(i, false);
+                }
+                updateSummaryProgress();
+            }
+        }
+
+        // Cập nhật danh sách tiến trình ở Trang 3
+        function updateSummaryProgress() {
+            const progressList = document.getElementById('progress-list');
+            if (!progressList) return;
+            
+            let html = '';
+            const titles = [
+                "Máy tính và các thiết bị ngoại vi",
+                "Khai thác dữ liệu và thông tin",
+                "Tổng quan về trí tuệ nhân tạo",
+                "Giao tiếp và hợp tác trong môi trường số",
+                "Sáng tạo nội dung số",
+                "An toàn và liêm chính học thuật trong môi trường số"
+            ];
+            
+            for (let i = 1; i <= 6; i++) {
+                const isSaved = localStorage.getItem(`minh_link_${i}`) || localStorage.getItem(`minh_note_${i}`);
+                html += `
+                    <div class="flex justify-between items-center py-1.5 border-b border-stone-100">
+                        <span class="truncate pr-2">${i}. ${titles[i-1]}</span>
+                        <span class="shrink-0 font-bold ${isSaved ? 'text-forest-600' : 'text-stone-400'}">
+                            ${isSaved ? '<i class="fa-solid fa-circle-check mr-1"></i>Đã lưu' : '<i class="fa-solid fa-circle-notch mr-1"></i>Trống'}
+                        </span>
+                    </div>
+                `;
+            }
+            progressList.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
